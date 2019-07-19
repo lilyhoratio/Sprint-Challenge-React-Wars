@@ -7,7 +7,7 @@ const CharacterCard = (props) => {
 
     const {name, hairColor, eyeColor, skinColor, gender, homeworld, species} = props;
 
-    const characterSpecies = species[0];
+    const characterSpecies = species[0]; 
     console.log("SPECIES", characterSpecies)
 
     const characterImagesObj = {
@@ -24,16 +24,16 @@ const CharacterCard = (props) => {
     }
 
     const [speciesObj, setSpeciesObj] = useState({})
+    console.log("SPECIES", speciesObj)
 
-    // useEffect( () => {
-    //     axios.get(`{characterSpecies}`)
-    //     .then(res => {
-    //         console.log(res)
-    //         const data = res.data.results;
-    //         setSpeciesObj(data);
-    //     })
-    //     .catch(error => console.log("API error:", error))
-    //   },[])
+    useEffect( () => {
+        axios.get(characterSpecies)
+        .then(res => {
+            const speciesData = res.data.results;
+            setSpeciesObj(speciesData);
+        })
+        .catch(error => console.log("API error:", error))
+      },[])
 
     return (
         // <Card className="card-container" style = {{height: "300px", width: "250px"}}>
@@ -42,7 +42,9 @@ const CharacterCard = (props) => {
             <Card.Content>
                 {/* <Card.Meta>{species}</Card.Meta> */}
                 <Card.Header>{name}</Card.Header>
-                <Card.Description>{name} is a {gender==="n/a" ? "gender nonconforming being" : gender} with {eyeColor} eyes, {skinColor} skin, and {hairColor==="n/a"||hairColor==="none" ? "no" : hairColor} hair.</Card.Description>
+                <Card.Description>{name} is a {(gender==="n/a"||gender==="none") ? "gender nonconforming being " : gender + " " } 
+                with {eyeColor} eyes, {skinColor} skin, 
+                and {(hairColor==="n/a"||hairColor==="none") ? "no" : hairColor} hair.</Card.Description>
             </Card.Content>
         </Card>
     )

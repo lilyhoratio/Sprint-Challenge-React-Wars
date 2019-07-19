@@ -9,20 +9,37 @@ const App = () => {
   // the state properties here.
 
   const [personObjs, setPersonObjs] = useState([])
+  const [page, setPage] = useState("https://henry-mock-swapi.herokuapp.com/api/?page=1");
+  const [nextPage, setPageNext] = useState(null)
+  const [previousPage, setPagePrevious] = useState(null)
   
   // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
 
+  //useEffect runs whenever it sees second argument changes
   useEffect( () => {
-    axios.get("https://henry-mock-swapi.herokuapp.com/api/")
+    axios.get(page)
     .then(res => {
+      // const nextPage = res.data.next; // https://henry-mock-swapi.herokuapp.com/api/?page=2
+      // const previousPage = res.data.previous; // null
+      setPageNext(res.data.next)
+      setPagePrevious(res.data.previous)
       const data = res.data.results;
+      // access data outside of .then - updating state of app to include data response. set next render
       setPersonObjs(data);
     })
     .catch(error => console.log("API error:", error))
-  },[])
+  },[page])
 
+  const visitNextPage = () => {
+    setPage(nextPage)
+  }
+  
+  const visitPreviousPage = () => {
+    setPage(previousPage)
+  }
+  
   console.log("SHEEPLE", personObjs) // explain when exactly the two console logs happen (first [], then array of objs)
 
   return (
@@ -42,6 +59,8 @@ const App = () => {
           species={data.species}/>)
         )}
       </div>
+      {previousPage && <button onClick={visitPreviousPage}>Previous 10</button>}
+      {nextPage && <button onClick={visitNextPage}>Next 10</button>}
     </div>
   );
 }

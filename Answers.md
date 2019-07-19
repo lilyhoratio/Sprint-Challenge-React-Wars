@@ -7,6 +7,8 @@ React JS is a JavaScript library that allows you to more easily manipulate the D
 2. What does it mean to think in react?
 To think in React means to think in terms of reusable components and the flow of data within an application. It involves visually breaking down an application into smaller pieces and designing your code in either a functional or class-based approach to passing props around.
 
+Declarative style in React. map describes output and transformation happening to input. 
+
 3. Describe state.
 State represents the current "view" of data in our application. When the state in our application is changed (for example, when a user interacts with the UI), React updates the DOM accordingly and rerenders whatever data was subject to change.
 
