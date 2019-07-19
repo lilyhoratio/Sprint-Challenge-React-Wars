@@ -15,7 +15,7 @@ const App = () => {
   // sync up with, if any.
 
   useEffect( () => {
-    axios.get("https://swapi.co/api/people/")
+    axios.get("https://henry-mock-swapi.herokuapp.com/api/")
     .then(res => {
       const data = res.data.results;
       setPersonObjs(data);
@@ -31,7 +31,7 @@ const App = () => {
       <div className="people-container">
         {personObjs.map(data => 
           (<CharacterCard 
-          key={data.name}
+          key={data.url}
           name={data.name}
           hairColor={data.hair_color}
           eyeColor={data.eye_color}
